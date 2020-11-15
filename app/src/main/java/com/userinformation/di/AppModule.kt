@@ -1,15 +1,15 @@
 package com.userinformation.di
 
-import android.content.Context
+import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.userinformation.dao.AppDatabase
-import com.userinformation.remote.UserService
+import com.userinformation.data.dao.AppDatabase
+import com.userinformation.data.remote.UserRemoteDataSource
+import com.userinformation.data.remote.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -31,15 +31,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideUserService(retrofit: Retrofit): UserService =  retrofit.create(UserService::class.java)
+    fun provideUserService(retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) = AppDatabase.getDatabase(appContext)
+    fun provideDatabase(application: Application) = AppDatabase.getDatabase(application)
 
     @Singleton
     @Provides
     fun provideUserDao(database: AppDatabase) = database.userDao()
 
+    @Singleton
+    @Provides
+    fun provideUserRemoteDataSource(userService: UserService) = UserRemoteDataSource(userService)
 
 }

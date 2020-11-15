@@ -1,4 +1,4 @@
-package com.userinformation.data
+package com.userinformation.data.entities
 
 data class UserList(
     val title:String,

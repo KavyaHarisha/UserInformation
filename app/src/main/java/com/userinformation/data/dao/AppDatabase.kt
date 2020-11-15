@@ -1,10 +1,10 @@
-package com.userinformation.dao
+package com.userinformation.data.dao
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.userinformation.data.User
+import com.userinformation.data.entities.User
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

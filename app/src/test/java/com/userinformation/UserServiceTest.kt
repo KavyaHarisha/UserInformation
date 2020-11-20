@@ -18,6 +18,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.HttpURLConnection
 
 @RunWith(JUnit4::class)
 class UserServiceTest{
@@ -66,4 +67,11 @@ class UserServiceTest{
         )
     }
 
+    @Test
+    fun getFailureTest() = runBlocking {
+        val mockResponse = MockResponse().setResponseCode(HttpURLConnection.HTTP_BAD_REQUEST)
+        mockWebServer.enqueue(mockResponse)
+        val response = service.getAllUsers()
+        assertEquals("Client Error", response.message())
+    }
 }

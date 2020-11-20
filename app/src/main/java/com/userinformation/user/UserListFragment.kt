@@ -63,11 +63,6 @@ class UserListFragment : BaseFragment<UserViewModel, FragmentUserListBinding>() 
         mViewBinding.swipeRefreshLayout.setOnRefreshListener {
             getUsers()
         }
-
-
-        if (mViewModel.postsUsers.value !is State.Success) {
-            getUsers()
-        }
     }
 
     private fun getUsers() {

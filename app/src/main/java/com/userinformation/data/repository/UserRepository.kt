@@ -21,8 +21,10 @@ class UserRepository @Inject constructor(
     fun getAllUser(): Flow<State<List<User>>> {
         return object : NetworkDataRepository<List<User>, UserList>() {
 
-            override suspend fun saveRemoteData(response: UserList) =
+            override suspend fun saveRemoteData(response: UserList) {
+                localDataSource.deleteAllUsers()
                 localDataSource.insertAll(response.rows)
+            }
 
             override fun fetchFromLocal(): Flow<List<User>> = localDataSource.getAllUsers()
 

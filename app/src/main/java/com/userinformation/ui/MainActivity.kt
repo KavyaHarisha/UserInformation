@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.userinformation.R
 import com.userinformation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,5 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    fun updateFragmentTitle(title:String){
+        toolbar.title = title
     }
 }

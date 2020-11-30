@@ -18,10 +18,13 @@ class UserRepository @Inject constructor(
             private val remoteDataSource: UserRemoteDataSource,
             private val localDataSource: UserDao) {
 
+    private var userTitle = ""
+
     fun getAllUser(): Flow<State<List<User>>> {
         return object : NetworkDataRepository<List<User>, UserList>() {
 
             override suspend fun saveRemoteData(response: UserList) {
+                userTitle = response.title
                 localDataSource.deleteAllUsers()
                 localDataSource.insertAll(response.rows)
             }
@@ -31,4 +34,6 @@ class UserRepository @Inject constructor(
             override suspend fun fetchFromRemote(): Response<UserList> = remoteDataSource.getUsers()
         }.asFlow()
     }
+
+    fun getUserTitle() = userTitle
 }

@@ -13,6 +13,7 @@ import androidx.lifecycle.observe
 import com.userinformation.R
 import com.userinformation.databinding.FragmentUserListBinding
 import com.userinformation.ui.BaseFragment
+import com.userinformation.ui.MainActivity
 import com.userinformation.utils.NetworkUtils
 import com.userinformation.utils.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,8 +57,11 @@ class UserListFragment : BaseFragment<UserViewModel, FragmentUserListBinding>() 
                     Toast.makeText(activity,state.message,Toast.LENGTH_LONG).show()
                     showLoading(false)
                 }
-
             }
+        }
+
+        mViewModel.userTitle.observe(viewLifecycleOwner){
+            (activity as MainActivity).updateFragmentTitle(it)
         }
 
         mViewBinding.swipeRefreshLayout.setOnRefreshListener {

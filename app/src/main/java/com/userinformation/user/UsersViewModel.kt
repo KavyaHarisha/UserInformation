@@ -17,14 +17,19 @@ class UserViewModel @ViewModelInject constructor(private val repository: UserRep
     ViewModel() {
 
     private val _userData = MutableLiveData<State<List<User>>>()
+    private val _userTitle = MutableLiveData<String>()
 
     val postsUsers: LiveData<State<List<User>>>
         get() = _userData
+
+    val userTitle: LiveData<String>
+        get() = _userTitle
 
     fun getUsers() {
         viewModelScope.launch {
             repository.getAllUser().collect {
                 _userData.value = it
+                _userTitle.value = repository.getUserTitle()
             }
         }
     }

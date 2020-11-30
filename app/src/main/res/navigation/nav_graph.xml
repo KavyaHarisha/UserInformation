@@ -8,6 +8,5 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.userinformation.user.UserListFragment"
-        android:label="Users"
         tools:layout="@layout/fragment_user_list" />
 </navigation>
